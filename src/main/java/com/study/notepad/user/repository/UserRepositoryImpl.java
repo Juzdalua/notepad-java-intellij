@@ -1,5 +1,6 @@
 package com.study.notepad.user.repository;
 
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.study.notepad.user.domain.QUser;
 import com.study.notepad.user.domain.User;
@@ -19,6 +20,15 @@ public class UserRepositoryImpl implements UserRepositoryCustom {
 
     QUser user = QUser.user;
 
-    return queryFactory.selectFrom(user).where(firstName != null ? user.firstName.eq(firstName) : null).fetch();
+    return queryFactory.selectFrom(user).where(firstNameEq(firstName)).fetch();
+//    return queryFactory.selectFrom(user).where(firstNameEq(firstName), lastNameEq(lastName)).fetch();
+  }
+
+  private BooleanExpression lastNameEq(String lastName) {
+    return lastName != null ? QUser.user.lastName.eq(lastName) : null;
+  }
+
+  private BooleanExpression firstNameEq(String firstName) {
+    return firstName != null ? QUser.user.firstName.eq(firstName) : null;
   }
 }
