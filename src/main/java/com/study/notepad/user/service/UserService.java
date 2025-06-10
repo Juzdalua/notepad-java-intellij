@@ -2,6 +2,8 @@ package com.study.notepad.user.service;
 
 import com.study.notepad.user.domain.User;
 import com.study.notepad.user.repository.UserRepository;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,4 +30,7 @@ public class UserService {
     return userRepository.searchUsersByFirstName(firstName);
   }
 
+  public Page<User> getAllUsers(Pageable pageable){
+    return userRepository.findAllUsersOrderByIdAsc(pageable);
+  }
 }

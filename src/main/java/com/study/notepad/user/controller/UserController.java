@@ -5,6 +5,9 @@ import com.study.notepad.user.domain.User;
 import com.study.notepad.user.dto.UserResponse;
 import com.study.notepad.user.service.UserService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,5 +38,11 @@ public class UserController {
     List<User> users = userService.searchUsersByFirstName(firstName);
     List<UserResponse> responseList = users.stream().map(UserResponse::of).toList();
     return ResponseEntity.ok(new ApiResponse<>(responseList));
+  }
+
+  @GetMapping("/all")
+  public ResponseEntity<ApiResponse<Page<UserResponse>>> getAllUsers(@PageableDefault(size = 10) Pageable pageable) {
+    // http://localhost:8080/api/users/all?page=3&size=1
+    return ResponseEntity.ok(new ApiResponse<>(userService.getAllUsers(pageable).map((UserResponse::of))));
   }
 }
