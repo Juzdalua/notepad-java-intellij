@@ -1,5 +1,9 @@
 package com.study.notepad.user.repository;
 
+import com.study.notepad.user.domain.User;
+
+import java.util.List;
+
 public interface UserRepositoryCustom {
-   long updateUserAgeByNameFromQueryDsl(String name, int age);
+   List<User> searchUsersByFirstName(String firstName);
 }

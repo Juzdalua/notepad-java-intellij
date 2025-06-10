@@ -1,25 +1,24 @@
 package com.study.notepad.user.repository;
 
-// import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.study.notepad.user.domain.QUser;
+import com.study.notepad.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
-// import static com.study.notepad.user.domain.QUser.user;
+import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class UserRepositoryImpl implements UserRepositoryCustom {
 
-  // private final JPAQueryFactory queryFactory;
+  private final JPAQueryFactory queryFactory;
 
   @Override
-  public long updateUserAgeByNameFromQueryDsl(String name, int age) {
-    return 1;
+  public List<User> searchUsersByFirstName(String firstName) {
 
-    // return queryFactory
-    // .update(user)
-    // .set(user.age, age)
-    // .where(user.name.eq(name))
-    // .execute();
+    QUser user = QUser.user;
+
+    return queryFactory.selectFrom(user).where(firstName != null ? user.firstName.eq(firstName) : null).fetch();
   }
 }
