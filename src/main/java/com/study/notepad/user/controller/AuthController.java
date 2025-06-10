@@ -1,6 +1,7 @@
 package com.study.notepad.user.controller;
 
 import com.study.notepad.common.dto.ApiResponse;
+import com.study.notepad.global.util.NumberUtil;
 import com.study.notepad.user.dto.LoginRequest;
 import com.study.notepad.user.dto.LoginResponse;
 import com.study.notepad.user.dto.SignupRequest;
@@ -33,6 +34,9 @@ public class AuthController {
 
   @GetMapping("/test")
   public void test(){
+    System.out.println(NumberUtil.isNumeric("123"));
+    System.out.println(NumberUtil.isNumeric("as"));
+    System.out.println(NumberUtil.isNumeric("a1"));
     System.out.println("TEST");
   }
 }
