@@ -1,7 +1,7 @@
 package com.study.notepad.global.filter;
 
 import com.study.notepad.global.jwt.JwtProvider;
-import com.study.notepad.user.dto.UserResponse;
+import com.study.notepad.user.domain.User;
 import com.study.notepad.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
@@ -35,14 +35,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     if (token != null && jwtProvider.validateToken(token)) {
       String userIdStr = jwtProvider.getUserId(token);
 
-      long userId = 0;
+      long userId;
       try {
         userId = Long.parseLong(userIdStr);
       } catch (NumberFormatException e) {
         throw new IllegalArgumentException(e.getMessage());
       }
 
-      UserResponse user = userService.getUserInfoById(userId);
+      // AccessToken 인증 후, UserResponse로 데이터 매핑
+      User user = userService.getUserInfoById(userId);
 
       UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(user, null,
               Collections.emptyList());

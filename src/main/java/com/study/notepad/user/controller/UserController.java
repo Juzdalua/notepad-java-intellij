@@ -1,5 +1,6 @@
 package com.study.notepad.user.controller;
 
+import com.study.notepad.user.domain.User;
 import com.study.notepad.user.dto.UserResponse;
 import com.study.notepad.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -18,8 +19,9 @@ public class UserController {
 
   @GetMapping("/me")
   public ResponseEntity<UserResponse> getMyInfo(Authentication authentication) {
-    UserResponse user = (UserResponse) authentication.getPrincipal();
+    // JwtAuthenticationFilter -> doFilterInternal() -> userService.getUserInfoById()
+    User user = (User) authentication.getPrincipal();
 
-    return ResponseEntity.ok(user);
+    return ResponseEntity.ok(UserResponse.of(user));
   }
 }
