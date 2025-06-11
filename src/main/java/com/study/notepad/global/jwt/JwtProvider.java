@@ -1,6 +1,5 @@
 package com.study.notepad.global.jwt;
 
-
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;
 import jakarta.annotation.PostConstruct;
