@@ -42,7 +42,7 @@ public class UserController {
 
   @GetMapping("/all")
   public ResponseEntity<ApiResponse<Page<UserResponse>>> getAllUsers(@PageableDefault(size = 10) Pageable pageable) {
-    // http://localhost:8080/api/users/all?page=3&size=1
+    // http://localhost:8080/api/users/all?page=3&size=1&sort=asc
     return ResponseEntity.ok(new ApiResponse<>(userService.getAllUsers(pageable).map((UserResponse::of))));
   }
 }
